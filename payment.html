@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Sécurisé | Mohammed - Automatisation WordPress & IA</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .payment-hero {
+            background: linear-gradient(135deg, #007bbf 0%, #0056b3 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .payment-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .order-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .payment-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-selection {
+            margin-bottom: 30px;
+        }
+
+        .service-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover,
+        .service-card.selected {
+            border-color: #007bbf;
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .service-card.selected::before {
+            content: "✅";
+            float: right;
+            color: #007bbf;
+            font-size: 18px;
+        }
+
+        .price-display {
+            font-size: 24px;
+            font-weight: 700;
+            color: #007bbf;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .payment-methods {
+            margin: 30px 0;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover,
+        .payment-method.selected {
+            border-color: #007bbf;
+            background: #f8f9fa;
+        }
+
+        .payment-method input[type="radio"] {
+            margin-right: 15px;
+        }
+
+        .payment-method img {
+            width: 40px;
+            height: 25px;
+            margin-right: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #007bbf;
+            outline: none;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .security-badge {
+            text-align: center;
+            color: #28a745;
+        }
+
+        .security-badge i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .pay-button {
+            width: 100%;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pay-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .pay-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .order-summary h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 18px;
+            color: #007bbf;
+        }
+
+        .trust-indicators {
+            background: #f8f9fa;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .trust-item i {
+            font-size: 32px;
+            color: #28a745;
+        }
+
+        @media (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .payment-hero {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">Mohammed</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">À Propos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="services.html" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="portfolio.html" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonials.html" class="nav-link">Témoignages</a>
+                </li>
+                <li class="nav-item">
+                    <a href="faq.html" class="nav-link">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a href="plugin-demo.html" class="nav-link">Démo Plugin</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Payment Hero -->
+    <section class="payment-hero">
+        <div class="container">
+            <h1>🔐 Paiement Sécurisé</h1>
+            <p>Choisissez votre service et effectuez un paiement 100% sécurisé</p>
+        </div>
+    </section>
+
+    <!-- Trust Indicators -->
+    <section class="trust-indicators">
+        <div class="container">
+            <h2>🛡️ Votre Sécurité, Notre Priorité</h2>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <strong>SSL 256-bit</strong>
+                        <p>Cryptage bancaire</p>
+                    </div>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-lock"></i>
+                    <div>
+                        <strong>Données Protégées</strong>
+                        <p>Aucun stockage de cartes</p>
+                    </div>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-certificate"></i>
+                    <div>
+                        <strong>Certification PCI</strong>
+                        <p>Standards internationaux</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Form -->
+    <section class="payment-container">
+        <div class="payment-grid">
+            <!-- Order Form -->
+            <div class="payment-form">
+                <h2>📋 Commandez Votre Service</h2>
+                
+                <form id="paymentForm">
+                    <!-- Service Selection -->
+                    <div class="service-selection">
+                        <h3>Sélectionnez votre service :</h3>
+                        
+                        <div class="service-card" data-price="300" data-service="plugin-simple">
+                            <h4>Plugin WordPress Simple</h4>
+                            <p>Plugin de base avec fonctionnalités essentielles</p>
+                            <strong>300 MAD</strong>
+                        </div>
+                        
+                        <div class="service-card" data-price="800" data-service="plugin-avance">
+                            <h4>Plugin WordPress Avancé</h4>
+                            <p>Plugin personnalisé avec fonctionnalités complètes</p>
+                            <strong>800 MAD</strong>
+                        </div>
+                        
+                        <div class="service-card" data-price="1200" data-service="automatisation">
+                            <h4>Automatisation Réseaux Sociaux</h4>
+                            <p>Système complet d'automatisation IA</p>
+                            <strong>1200 MAD</strong>
+                        </div>
+                        
+                        <div class="service-card" data-price="2000" data-service="ecommerce">
+                            <h4>Solution E-commerce</h4>
+                            <p>Boutique en ligne complète + plugins</p>
+                            <strong>2000 MAD</strong>
+                        </div>
+                    </div>
+
+                    <!-- Customer Information -->
+                    <div class="form-group">
+                        <label for="customerName">Nom complet *</label>
+                        <input type="text" id="customerName" name="customerName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerEmail">Email *</label>
+                        <input type="email" id="customerEmail" name="customerEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerPhone">Téléphone *</label>
+                        <input type="tel" id="customerPhone" name="customerPhone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerCity">Ville</label>
+                        <select id="customerCity" name="customerCity">
+                            <option value="">Sélectionnez votre ville</option>
+                            <option value="casablanca">Casablanca</option>
+                            <option value="rabat">Rabat</option>
+                            <option value="marrakech">Marrakech</option>
+                            <option value="fes">Fès</option>
+                            <option value="tanger">Tanger</option>
+                            <option value="agadir">Agadir</option>
+                            <option value="meknes">Meknès</option>
+                            <option value="oujda">Oujda</option>
+                            <option value="kenitra">Kénitra</option>
+                            <option value="tetouan">Tétouan</option>
+                            <option value="sale">Salé</option>
+                            <option value="temara">Témara</option>
+                            <option value="mohammedia">Mohammedia</option>
+                            <option value="el-jadida">El Jadida</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <!-- Project Details -->
+                    <div class="form-group">
+                        <label for="projectDescription">Description du projet</label>
+                        <textarea id="projectDescription" name="projectDescription" rows="4" placeholder="Décrivez vos besoins spécifiques..."></textarea>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+                        <h3>💳 Méthode de paiement :</h3>
+                        
+                        <label class="payment-method">
+                            <input type="radio" name="paymentMethod" value="whatsapp" checked>
+                            <i class="fab fa-whatsapp" style="color: #25D366; font-size: 24px;"></i>
+                            <div>
+                                <strong>WhatsApp + Virement</strong>
+                                <p>Commande via WhatsApp + paiement par virement</p>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-method">
+                            <input type="radio" name="paymentMethod" value="paypal">
+                            <i class="fab fa-paypal" style="color: #0070ba; font-size: 24px;"></i>
+                            <div>
+                                <strong>PayPal</strong>
+                                <p>Paiement sécurisé international</p>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-method">
+                            <input type="radio" name="paymentMethod" value="wise">
+                            <i class="fas fa-university" style="color: #37517e; font-size: 24px;"></i>
+                            <div>
+                                <strong>Wise (ex-TransferWise)</strong>
+                                <p>Transfert international économique</p>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-method">
+                            <input type="radio" name="paymentMethod" value="bank">
+                            <i class="fas fa-building-columns" style="color: #28a745; font-size: 24px;"></i>
+                            <div>
+                                <strong>Virement Bancaire</strong>
+                                <p>Banque marocaine (BMCE, Attijariwafa, CIH...)</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Security Features -->
+                    <div class="security-badges">
+                        <div class="security-badge">
+                            <i class="fas fa-shield-check"></i>
+                            <p><small>Paiement<br>Sécurisé</small></p>
+                        </div>
+                        <div class="security-badge">
+                            <i class="fas fa-user-shield"></i>
+                            <p><small>Données<br>Protégées</small></p>
+                        </div>
+                        <div class="security-badge">
+                            <i class="fas fa-clock"></i>
+                            <p><small>Support<br>24/7</small></p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="pay-button">
+                        <i class="fas fa-credit-card"></i>
+                        Procéder au Paiement
+                    </button>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>📄 Récapitulatif de Commande</h3>
+                <div id="summaryContent">
+                    <div class="summary-item">
+                        <span>Service sélectionné:</span>
+                        <span id="selectedService">Aucun service sélectionné</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Prix:</span>
+                        <span id="servicePrice">0 MAD</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Remise première commande:</span>
+                        <span id="discount">-50 MAD</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Total à payer:</strong></span>
+                        <span id="totalPrice"><strong>0 MAD</strong></span>
+                    </div>
+                </div>
+
+                <div class="price-display" id="finalPrice">
+                    Sélectionnez un service
+                </div>
+
+                <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <h4>🎁 Offre Spéciale :</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>✅ Support gratuit 30 jours</li>
+                        <li>✅ Formation incluse (1h)</li>
+                        <li>✅ Corrections illimitées</li>
+                        <li>✅ Garantie satisfait ou remboursé</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <p><strong>🚀 Livraison en 3-7 jours</strong></p>
+                    <p><i class="fas fa-phone"></i> Support: +212 642 068 268</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Mohammed</h3>
+                    <p>Expert en automatisation WordPress et IA au Maroc. Paiements 100% sécurisés.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/212642068268"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Paiements Acceptés</h4>
+                    <ul>
+                        <li><i class="fab fa-paypal"></i> PayPal</li>
+                        <li><i class="fas fa-university"></i> Wise</li>
+                        <li><i class="fas fa-building-columns"></i> Virement</li>
+                        <li><i class="fab fa-whatsapp"></i> WhatsApp</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 Mohammed - Paiements Sécurisés SSL. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Payment Form Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            const paymentForm = document.getElementById('paymentForm');
+            const selectedServiceSpan = document.getElementById('selectedService');
+            const servicePriceSpan = document.getElementById('servicePrice');
+            const totalPriceSpan = document.getElementById('totalPrice');
+            const finalPriceDiv = document.getElementById('finalPrice');
+            const discountSpan = document.getElementById('discount');
+
+            let selectedService = null;
+            let selectedPrice = 0;
+
+            // Service selection
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selection from all cards
+                    serviceCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Select current card
+                    this.classList.add('selected');
+                    
+                    // Update selection data
+                    selectedService = this.dataset.service;
+                    selectedPrice = parseInt(this.dataset.price);
+                    
+                    // Update display
+                    selectedServiceSpan.textContent = this.querySelector('h4').textContent;
+                    servicePriceSpan.textContent = selectedPrice + ' MAD';
+                    
+                    // Calculate discount (50 MAD off for first order)
+                    const discount = Math.min(50, selectedPrice * 0.1); // 10% or 50 MAD max
+                    const finalPrice = selectedPrice - discount;
+                    
+                    discountSpan.textContent = '-' + discount + ' MAD';
+                    totalPriceSpan.innerHTML = '<strong>' + finalPrice + ' MAD</strong>';
+                    finalPriceDiv.textContent = finalPrice + ' MAD';
+                });
+            });
+
+            // Form submission
+            paymentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!selectedService) {
+                    alert('Veuillez sélectionner un service.');
+                    return;
+                }
+
+                const formData = new FormData(paymentForm);
+                const data = Object.fromEntries(formData);
+                
+                // Calculate final price with discount
+                const discount = Math.min(50, selectedPrice * 0.1);
+                const finalPrice = selectedPrice - discount;
+                
+                // Create secure order summary
+                const orderSummary = `🔐 COMMANDE SÉCURISÉE - Mohammed Automation
+
+👤 CLIENT:
+• Nom: ${data.customerName}
+• Email: ${data.customerEmail}
+• Téléphone: ${data.customerPhone}
+• Ville: ${data.customerCity || 'Non spécifiée'}
+
+🛍️ SERVICE COMMANDÉ:
+• Service: ${selectedServiceSpan.textContent}
+• Prix initial: ${selectedPrice} MAD
+• Remise appliquée: -${discount} MAD
+• TOTAL À PAYER: ${finalPrice} MAD
+
+💳 MÉTHODE DE PAIEMENT:
+• ${getPaymentMethodName(data.paymentMethod)}
+
+📋 DESCRIPTION DU PROJET:
+${data.projectDescription || 'Aucune description fournie'}
+
+🎁 INCLUS GRATUITEMENT:
+✅ Support 30 jours
+✅ Formation 1h
+✅ Corrections illimitées
+✅ Garantie satisfait ou remboursé
+
+🚀 Livraison prévue: 3-7 jours ouvrables
+
+Pour procéder au paiement sécurisé, je vais vous envoyer les instructions de paiement via WhatsApp.`;
+
+                // Generate secure WhatsApp message
+                const whatsappUrl = `https://wa.me/212642068268?text=${encodeURIComponent(orderSummary)}`;
+                
+                // Show confirmation
+                if (confirm(`Confirmer votre commande de ${finalPrice} MAD?\n\nVous allez être redirigé vers WhatsApp pour recevoir les instructions de paiement sécurisé.`)) {
+                    window.open(whatsappUrl, '_blank');
+                    
+                    // Show success message
+                    showSuccessMessage(data.paymentMethod, finalPrice);
+                }
+            });
+
+            function getPaymentMethodName(method) {
+                switch(method) {
+                    case 'whatsapp': return 'WhatsApp + Virement Bancaire';
+                    case 'paypal': return 'PayPal International';
+                    case 'wise': return 'Wise (ex-TransferWise)';
+                    case 'bank': return 'Virement Bancaire Direct';
+                    default: return 'Non spécifié';
+                }
+            }
+
+            function showSuccessMessage(paymentMethod, amount) {
+                let instructions = '';
+                
+                switch(paymentMethod) {
+                    case 'paypal':
+                        instructions = `Instructions PayPal vous seront envoyées via WhatsApp avec le lien de paiement sécurisé.`;
+                        break;
+                    case 'wise':
+                        instructions = `Détails Wise pour le transfert international vous seront communiqués.`;
+                        break;
+                    case 'bank':
+                        instructions = `Coordonnées bancaires marocaines vous seront fournies via WhatsApp.`;
+                        break;
+                    default:
+                        instructions = `Instructions de paiement détaillées vous seront envoyées.`;
+                }
+
+                alert(`✅ COMMANDE CONFIRMÉE!
+
+💰 Montant: ${amount} MAD
+🔐 Paiement: 100% Sécurisé
+
+${instructions}
+
+📱 Vérifiez WhatsApp dans quelques secondes...
+
+Merci pour votre confiance! 🙏`);
+            }
+        });
+    </script>
+</body>
+</html>

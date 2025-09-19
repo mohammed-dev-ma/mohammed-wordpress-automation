@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Questions Fréquentes | Mohammed - Automatisation WordPress & IA</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* FAQ specific styles */
+        .faq-hero {
+            background: linear-gradient(rgba(0, 123, 191, 0.9), rgba(0, 86, 133, 0.9)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .faq-search {
+            max-width: 600px;
+            margin: 40px auto 0;
+            position: relative;
+        }
+
+        .faq-search input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+
+        .faq-search i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #007bbf;
+        }
+
+        .faq-categories {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .category-tab {
+            background: white;
+            border: 2px solid #e9ecef;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: #007bbf;
+            color: white;
+            border-color: #007bbf;
+            text-decoration: none;
+        }
+
+        .faq-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 18px;
+            color: #2c3e50;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: #007bbf;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+
+        .faq-answer-content {
+            padding: 25px;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+
+        .faq-answer ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        .faq-answer li {
+            margin: 8px 0;
+        }
+
+        .price-highlight {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #007bbf;
+            margin: 15px 0;
+        }
+
+        .contact-cta {
+            background: linear-gradient(135deg, #007bbf 0%, #0056b3 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .still-have-questions {
+            background: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .help-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+        }
+
+        .help-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .help-card i {
+            font-size: 48px;
+            color: #007bbf;
+            margin-bottom: 20px;
+        }
+
+        .help-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .help-card p {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .help-btn {
+            background: #007bbf;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .help-btn:hover {
+            background: #0056b3;
+            text-decoration: none;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .faq-hero {
+                padding: 60px 0;
+            }
+
+            .faq-question {
+                padding: 20px;
+                font-size: 16px;
+            }
+
+            .faq-answer-content {
+                padding: 20px;
+            }
+
+            .category-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .category-tab {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">Mohammed</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">À Propos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="services.html" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="portfolio.html" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonials.html" class="nav-link">Témoignages</a>
+                </li>
+                <li class="nav-item">
+                    <a href="faq.html" class="nav-link active">FAQ</a>
+                </li>
+                <li class="nav-item">
+                    <a href="plugin-demo.html" class="nav-link">Démo Plugin</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="faq-hero">
+        <div class="container">
+            <h1>Questions Fréquentes</h1>
+            <p>Trouvez rapidement les réponses à vos questions sur nos services d'automatisation WordPress et IA au Maroc</p>
+            
+            <div class="faq-search">
+                <input type="text" placeholder="Rechercher une question..." id="searchInput">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Categories -->
+    <section class="faq-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="general">
+                    <i class="fas fa-info-circle"></i> Général
+                </div>
+                <div class="category-tab" data-category="services">
+                    <i class="fas fa-cogs"></i> Services
+                </div>
+                <div class="category-tab" data-category="pricing">
+                    <i class="fas fa-money-bill-wave"></i> Tarification
+                </div>
+                <div class="category-tab" data-category="technical">
+                    <i class="fas fa-code"></i> Technique
+                </div>
+                <div class="category-tab" data-category="process">
+                    <i class="fas fa-project-diagram"></i> Processus
+                </div>
+                <div class="category-tab" data-category="support">
+                    <i class="fas fa-headset"></i> Support
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <!-- General Questions -->
+                <div class="category-content active" id="general">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Qui êtes-vous et que faites-vous ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Je suis Mohammed, expert en automatisation WordPress et intelligence artificielle basé au Maroc. Je me spécialise dans :</p>
+                                <ul>
+                                    <li>Le développement de plugins WordPress personnalisés</li>
+                                    <li>L'automatisation des réseaux sociaux avec l'IA</li>
+                                    <li>La création de solutions e-commerce avancées</li>
+                                    <li>L'intégration d'intelligence artificielle dans les sites web</li>
+                                </ul>
+                                <p>Avec plus de 5 ans d'expérience, j'aide les entreprises marocaines et internationales à automatiser leurs processus digitaux pour économiser du temps et augmenter leurs revenus.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Pourquoi choisir vos services par rapport à la concurrence ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Voici ce qui me distingue :</p>
+                                <ul>
+                                    <li><strong>Expertise locale :</strong> Connaissance approfondie du marché marocain et des besoins spécifiques</li>
+                                    <li><strong>Solutions sur mesure :</strong> Chaque projet est unique et adapté à votre business</li>
+                                    <li><strong>Technologies de pointe :</strong> Utilisation des dernières avancées en IA et automatisation</li>
+                                    <li><strong>Support continu :</strong> Accompagnement avant, pendant et après la livraison</li>
+                                    <li><strong>Prix compétitifs :</strong> Tarifs adaptés au marché marocain</li>
+                                    <li><strong>Résultats prouvés :</strong> Portfolio de clients satisfaits avec ROI démontré</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Travaillez-vous uniquement avec des clients marocains ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Non, je travaille avec des clients du monde entier ! Bien que basé au Maroc, mes services sont disponibles internationalement :</p>
+                                <ul>
+                                    <li><strong>Clients locaux :</strong> Maroc, Afrique du Nord, Afrique francophone</li>
+                                    <li><strong>Clients internationaux :</strong> Europe, Amérique du Nord, Moyen-Orient</li>
+                                    <li><strong>Langues :</strong> Français, Arabe, Anglais</li>
+                                    <li><strong>Fuseaux horaires :</strong> Adaptabilité aux horaires clients</li>
+                                </ul>
+                                <p>L'avantage du Maroc est un excellent rapport qualité-prix avec des standards internationaux.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Questions -->
+                <div class="category-content" id="services">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Quels types de plugins WordPress développez-vous ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Je développe une large gamme de plugins WordPress personnalisés :</p>
+                                <ul>
+                                    <li><strong>E-commerce :</strong> Systèmes de paiement, gestion stock, promotions automatiques</li>
+                                    <li><strong>Automatisation :</strong> Publications automatiques, emails marketing, CRM intégré</li>
+                                    <li><strong>Réseaux sociaux :</strong> Auto-posting, analytics, engagement automatique</li>
+                                    <li><strong>SEO :</strong> Optimisation automatique, génération de métadonnées</li>
+                                    <li><strong>Sécurité :</strong> Protection avancée, backup automatique</li>
+                                    <li><strong>Performance :</strong> Optimisation vitesse, cache intelligent</li>
+                                    <li><strong>IA intégrée :</strong> Chatbots, recommandations personnalisées</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Comment fonctionne l'automatisation des réseaux sociaux ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Mon système d'automatisation IA pour réseaux sociaux inclut :</p>
+                                <ul>
+                                    <li><strong>Génération de contenu :</strong> Création automatique de posts, images, vidéos</li>
+                                    <li><strong>Planification intelligente :</strong> Publication aux meilleurs moments</li>
+                                    <li><strong>Multi-plateformes :</strong> Facebook, Instagram, LinkedIn, Twitter, TikTok</li>
+                                    <li><strong>Analyse de performance :</strong> Métriques détaillées et optimisation</li>
+                                    <li><strong>Engagement automatique :</strong> Réponses aux commentaires et messages</li>
+                                    <li><strong>Hashtags optimisés :</strong> Recherche et utilisation des hashtags tendances</li>
+                                </ul>
+                                <p>Résultat : Économisez 10-15h/semaine tout en multipliant votre engagement par 3-5x.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Que comprend votre service e-commerce ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Solutions e-commerce complètes adaptées au marché marocain :</p>
+                                <ul>
+                                    <li><strong>Boutique WordPress :</strong> WooCommerce personnalisé et optimisé</li>
+                                    <li><strong>Paiements locaux :</strong> CMI, Maroc Telecommerce, PayPal, Stripe</li>
+                                    <li><strong>Livraison :</strong> Intégration transporteurs marocains (Amana, Colis du Maroc)</li>
+                                    <li><strong>Gestion stock :</strong> Automatisation commandes, alerts stock bas</li>
+                                    <li><strong>Marketing automatisé :</strong> Emails de suivi, promotions ciblées</li>
+                                    <li><strong>Analytics avancées :</strong> Tableaux de bord ROI détaillés</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Questions -->
+                <div class="category-content" id="pricing">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Quels sont vos tarifs ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <div class="price-highlight">
+                                    <h4>💰 Tarifs 2024 (Prix en MAD)</h4>
+                                    <ul>
+                                        <li><strong>Plugin WordPress Simple :</strong> 300-800 MAD</li>
+                                        <li><strong>Plugin WordPress Avancé :</strong> 800-2000 MAD</li>
+                                        <li><strong>Automatisation Réseaux Sociaux :</strong> 500-1500 MAD/mois</li>
+                                        <li><strong>Site E-commerce Complet :</strong> 1200-3000 MAD</li>
+                                        <li><strong>Intégration IA Personnalisée :</strong> 1000-2500 MAD</li>
+                                        <li><strong>Formation & Consulting :</strong> 200 MAD/heure</li>
+                                    </ul>
+                                </div>
+                                <p><strong>Facteurs influençant le prix :</strong></p>
+                                <ul>
+                                    <li>Complexité des fonctionnalités demandées</li>
+                                    <li>Nombre d'intégrations tierces nécessaires</li>
+                                    <li>Volume de personnalisation requis</li>
+                                    <li>Délais de livraison souhaités</li>
+                                    <li>Support et maintenance inclus</li>
+                                </ul>
+                                <p>💡 <strong>Devis gratuit sous 24h</strong> pour obtenir un prix exact !</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Proposez-vous des plans de paiement ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Oui, plusieurs options de paiement flexibles :</p>
+                                <ul>
+                                    <li><strong>Paiement comptant :</strong> -10% de remise sur le total</li>
+                                    <li><strong>2 versements :</strong> 50% au démarrage, 50% à la livraison</li>
+                                    <li><strong>3 versements :</strong> 40% démarrage, 40% mi-projet, 20% livraison</li>
+                                    <li><strong>Paiement mensuel :</strong> Pour projets >2000 MAD, étalement possible</li>
+                                </ul>
+                                <p><strong>Méthodes acceptées :</strong> Virement bancaire, PayPal, Wise, Western Union</p>
+                                <p>🎯 <strong>Garantie satisfait ou remboursé</strong> sous 7 jours après livraison !</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Y a-t-il des frais cachés ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Absolument aucun frais caché !</strong> Voici ce qui est inclus dans mes tarifs :</p>
+                                <ul>
+                                    <li>✅ Développement complet selon cahier des charges</li>
+                                    <li>✅ Tests et débogage</li>
+                                    <li>✅ Documentation utilisateur complète</li>
+                                    <li>✅ Formation à l'utilisation (1h incluse)</li>
+                                    <li>✅ Support technique gratuit pendant 30 jours</li>
+                                    <li>✅ Corrections bugs gratuits pendant 90 jours</li>
+                                </ul>
+                                <p><strong>Frais supplémentaires possibles (toujours annoncés à l'avance) :</strong></p>
+                                <ul>
+                                    <li>Modifications majeures après validation du cahier des charges</li>
+                                    <li>Intégrations avec APIs payantes (coût tiers)</li>
+                                    <li>Hébergement premium si requis</li>
+                                    <li>Formation supplémentaire au-delà de 1h</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Questions -->
+                <div class="category-content" id="technical">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Quelles technologies utilisez-vous ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Stack technique moderne et robuste :</p>
+                                <ul>
+                                    <li><strong>Backend :</strong> PHP 8+, MySQL, WordPress API, Custom Post Types</li>
+                                    <li><strong>Frontend :</strong> HTML5, CSS3, JavaScript ES6+, React, Vue.js</li>
+                                    <li><strong>IA & Automatisation :</strong> OpenAI GPT, Python, Node.js, APIs REST</li>
+                                    <li><strong>E-commerce :</strong> WooCommerce, Stripe, PayPal, gateways locaux</li>
+                                    <li><strong>Hébergement :</strong> AWS, DigitalOcean, hébergeurs marocains</li>
+                                    <li><strong>Outils :</strong> Git, Docker, CI/CD, monitoring avancé</li>
+                                </ul>
+                                <p>🚀 Toujours à jour avec les dernières technologies et bonnes pratiques !</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Mes données sont-elles sécurisées ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>La sécurité est ma priorité absolue :</strong></p>
+                                <ul>
+                                    <li><strong>Confidentialité :</strong> Accord de non-divulgation (NDA) systématique</li>
+                                    <li><strong>Stockage sécurisé :</strong> Chiffrement AES-256, serveurs sécurisés</li>
+                                    <li><strong>Accès limité :</strong> Authentification 2FA, VPN obligatoire</li>
+                                    <li><strong>Backup automatique :</strong> Sauvegardes quotidiennes chiffrées</li>
+                                    <li><strong>Code sécurisé :</strong> Audit de sécurité, injection SQL prévention</li>
+                                    <li><strong>Conformité RGPD :</strong> Respect des réglementations européennes</li>
+                                </ul>
+                                <p>📋 <strong>Certification ISO 27001</strong> en cours d'obtention pour 2024.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Que se passe-t-il si mon site tombe en panne ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Support technique 24/7 inclus :</strong></p>
+                                <ul>
+                                    <li><strong>Monitoring continu :</strong> Surveillance automatique 24h/24</li>
+                                    <li><strong>Alerts instantanées :</strong> Notification immédiate en cas de problème</li>
+                                    <li><strong>Intervention rapide :</strong> Résolution sous 2h en moyenne</li>
+                                    <li><strong>Backup automatique :</strong> Restauration possible en 15 minutes</li>
+                                    <li><strong>Support prioritaire :</strong> Hotline dédiée pour les urgences</li>
+                                    <li><strong>SLA garantie :</strong> 99.9% de disponibilité assurée</li>
+                                </ul>
+                                <p>☎️ <strong>Urgence 24/7 :</strong> +212 6XX-XXX-XXX (WhatsApp Business)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Process Questions -->
+                <div class="category-content" id="process">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Comment se déroule un projet type ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Processus en 7 étapes claires :</strong></p>
+                                <ul>
+                                    <li><strong>1. Consultation gratuite (24-48h) :</strong> Analyse besoins et faisabilité</li>
+                                    <li><strong>2. Devis détaillé (48-72h) :</strong> Prix, délais, fonctionnalités</li>
+                                    <li><strong>3. Cahier des charges (3-5 jours) :</strong> Spécifications techniques détaillées</li>
+                                    <li><strong>4. Développement (1-4 semaines) :</strong> Codage avec updates réguliers</li>
+                                    <li><strong>5. Tests & débogage (3-7 jours) :</strong> QA complète, corrections</li>
+                                    <li><strong>6. Formation & livraison (1-2 jours) :</strong> Transfert et formation utilisateur</li>
+                                    <li><strong>7. Support post-livraison (30 jours) :</strong> Assistance gratuite incluse</li>
+                                </ul>
+                                <p>📊 <strong>Suivi en temps réel</strong> via dashboard client personnel.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Combien de temps prend un projet ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Délais typiques par type de projet :</strong></p>
+                                <ul>
+                                    <li><strong>Plugin simple :</strong> 3-7 jours ouvrables</li>
+                                    <li><strong>Plugin avancé :</strong> 1-3 semaines</li>
+                                    <li><strong>Automatisation réseaux sociaux :</strong> 5-10 jours</li>
+                                    <li><strong>Site e-commerce :</strong> 2-4 semaines</li>
+                                    <li><strong>Solution IA complexe :</strong> 3-6 semaines</li>
+                                    <li><strong>Migration/refonte :</strong> 1-2 semaines</li>
+                                </ul>
+                                <p><strong>Facteurs influençant les délais :</strong></p>
+                                <ul>
+                                    <li>Complexité des fonctionnalités</li>
+                                    <li>Nombre de révisions demandées</li>
+                                    <li>Intégrations tierces nécessaires</li>
+                                    <li>Charge de travail actuelle</li>
+                                </ul>
+                                <p>⚡ <strong>Option Express :</strong> +50% pour livraison en 48-72h (selon projet)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Puis-je modifier le projet en cours de développement ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Oui, avec une approche flexible :</strong></p>
+                                <ul>
+                                    <li><strong>Modifications mineures :</strong> Gratuites si <20% du projet</li>
+                                    <li><strong>Modifications moyennes :</strong> Avenant au contrat avec nouveau devis</li>
+                                    <li><strong>Changements majeurs :</strong> Possibilité de redémarrer avec nouveau cahier des charges</li>
+                                </ul>
+                                <p><strong>Processus de modification :</strong></p>
+                                <ul>
+                                    <li>1. Demande écrite via email/WhatsApp</li>
+                                    <li>2. Évaluation impact temps/coût sous 24h</li>
+                                    <li>3. Validation client avant implémentation</li>
+                                    <li>4. Ajustement planning si nécessaire</li>
+                                </ul>
+                                <p>💡 <strong>Conseil :</strong> Mieux vaut bien définir le projet initial pour éviter les coûts supplémentaires !</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Questions -->
+                <div class="category-content" id="support">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Quel support proposez-vous après livraison ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Support complet multi-niveaux :</strong></p>
+                                <ul>
+                                    <li><strong>30 jours gratuits :</strong> Support technique illimité après livraison</li>
+                                    <li><strong>90 jours garantie bugs :</strong> Correction gratuite des dysfonctionnements</li>
+                                    <li><strong>Documentation complète :</strong> Guide utilisateur détaillé + vidéos</li>
+                                    <li><strong>Formation incluse :</strong> 1h de formation personnalisée</li>
+                                    <li><strong>Hotline WhatsApp :</strong> Réponse sous 2h en journée</li>
+                                    <li><strong>Mise à jour WordPress :</strong> Compatibility check gratuit</li>
+                                </ul>
+                                <p><strong>Support premium étendu disponible :</strong></p>
+                                <ul>
+                                    <li>Support prioritaire 24/7</li>
+                                    <li>Mises à jour automatiques</li>
+                                    <li>Monitoring proactif</li>
+                                    <li>Nouvelles fonctionnalités incluses</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Comment puis-je vous contacter ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Plusieurs canaux de communication :</strong></p>
+                                <ul>
+                                    <li><strong>WhatsApp Business :</strong> +212 6XX-XXX-XXX (Préféré - réponse rapide)</li>
+                                    <li><strong>Email professionnel :</strong> mohammed@automatisation-ma.com</li>
+                                    <li><strong>Formulaire de contact :</strong> Sur ce site web</li>
+                                    <li><strong>Téléphone :</strong> +212 5XX-XXX-XXX (rendez-vous uniquement)</li>
+                                    <li><strong>Skype/Zoom :</strong> Consultations vidéo sur demande</li>
+                                </ul>
+                                <p><strong>Horaires de disponibilité :</strong></p>
+                                <ul>
+                                    <li>Lundi-Vendredi : 9h-18h (GMT+1)</li>
+                                    <li>Samedi : 10h-14h (urgent seulement)</li>
+                                    <li>Dimanche : Fermé (sauf urgence critique)</li>
+                                </ul>
+                                <p>🚀 <strong>Réponse garantie sous 2h en journée, 24h le weekend !</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Proposez-vous de la formation ?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p><strong>Oui, formations personnalisées disponibles :</strong></p>
+                                <ul>
+                                    <li><strong>WordPress Basics :</strong> 4h - 800 MAD</li>
+                                    <li><strong>Plugin Development :</strong> 8h - 1600 MAD</li>
+                                    <li><strong>IA & Automatisation :</strong> 6h - 1200 MAD</li>
+                                    <li><strong>E-commerce WooCommerce :</strong> 6h - 1200 MAD</li>
+                                    <li><strong>Social Media Automation :</strong> 4h - 800 MAD</li>
+                                </ul>
+                                <p><strong>Formats disponibles :</strong></p>
+                                <ul>
+                                    <li>Formation individuelle (1-on-1)</li>
+                                    <li>Formation en groupe (max 5 personnes)</li>
+                                    <li>Formation en entreprise (sur site)</li>
+                                    <li>Formation en ligne (Zoom/Teams)</li>
+                                    <li>Ateliers pratiques avec projets réels</li>
+                                </ul>
+                                <p>📚 <strong>Certification de formation</strong> délivrée à la fin de chaque cursus !</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Still Have Questions -->
+    <section class="still-have-questions">
+        <div class="container">
+            <h2>Vous avez encore des questions ?</h2>
+            <p>Notre équipe est là pour vous accompagner dans votre projet</p>
+            
+            <div class="help-cards">
+                <div class="help-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>Chat WhatsApp</h3>
+                    <p>Réponse rapide sous 2h en journée</p>
+                    <a href="https://wa.me/212XXXXXXX" class="help-btn">Chatter maintenant</a>
+                </div>
+                
+                <div class="help-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Consultation Gratuite</h3>
+                    <p>30 min d'analyse de votre projet</p>
+                    <a href="#contact" class="help-btn">Réserver un créneau</a>
+                </div>
+                
+                <div class="help-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Support</h3>
+                    <p>Questions détaillées et devis</p>
+                    <a href="mailto:contact@exemple.com" class="help-btn">Envoyer un email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Prêt à automatiser votre business ?</h2>
+            <p>Rejoignez plus de 100 entreprises marocaines qui ont transformé leur présence digitale</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/212XXXXXXX" class="cta-primary">
+                    <i class="fab fa-whatsapp"></i> Démarrer un projet
+                </a>
+                <a href="../index.html#contact" class="cta-secondary">
+                    Demander un devis gratuit
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Mohammed</h3>
+                    <p>Expert en automatisation WordPress et IA au Maroc. Transformez votre business avec des solutions sur mesure.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/212XXXXXXX"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Plugins WordPress</a></li>
+                        <li><a href="services.html">Automatisation IA</a></li>
+                        <li><a href="services.html">E-commerce</a></li>
+                        <li><a href="services.html">Formation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="testimonials.html">Témoignages</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Casablanca, Maroc</li>
+                        <li><i class="fab fa-whatsapp"></i> +212 6XX-XXX-XXX</li>
+                        <li><i class="fas fa-envelope"></i> contact@exemple.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 Mohammed - Automatisation WordPress & IA. Tous droits réservés.</p>
+                    <div class="footer-links">
+                        <a href="#privacy">Confidentialité</a>
+                        <a href="#terms">Conditions</a>
+                        <a href="#legal">Mentions légales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category switching
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const categoryContents = document.querySelectorAll('.category-content');
+
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetCategory = this.dataset.category;
+                    
+                    // Remove active class from all tabs and contents
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    categoryContents.forEach(c => {
+                        c.classList.remove('active');
+                        c.style.display = 'none';
+                    });
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    const targetContent = document.getElementById(targetCategory);
+                    targetContent.classList.add('active');
+                    targetContent.style.display = 'block';
+                });
+            });
+
+            // FAQ accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const allFaqItems = document.querySelectorAll('.faq-item');
+                
+                allFaqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = searchTerm === '' ? 'block' : 'none';
+                    }
+                });
+                
+                // If searching, show all categories
+                if (searchTerm !== '') {
+                    categoryContents.forEach(content => {
+                        content.style.display = 'block';
+                        content.classList.add('active');
+                    });
+                } else {
+                    // Reset to active category only
+                    categoryContents.forEach(content => {
+                        content.style.display = 'none';
+                        content.classList.remove('active');
+                    });
+                    document.querySelector('.category-content').style.display = 'block';
+                    document.querySelector('.category-content').classList.add('active');
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
